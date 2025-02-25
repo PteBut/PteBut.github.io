@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.9/css/unicons.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="style.css"> 
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 <body>
   <div class="section">
@@ -31,7 +32,7 @@
                         <input type="password" class="form-style" placeholder="Password">
                         <i class="input-icon uil uil-lock-alt"></i>
                       </div>
-                      <a href="https://panel.cfars.web.id" class="btn mt-4">Login</a>
+                      <button id="loginButton" class="btn mt-4">Login</button>
                       <p class="mb-0 mt-4 text-center"><a href="https://panel.cfars.web.id" class="link">Forgot your password?</a></p>
                     </div>
                   </div>
@@ -56,7 +57,7 @@
                         <input type="password" class="form-style" placeholder="Password">
                         <i class="input-icon uil uil-lock-alt"></i>
                       </div>
-                      <a href="https://panel.cfars.web.id" class="btn mt-4">Register</a>
+                      <button id="registerButton" class="btn mt-4">Register</button>
                     </div>
                   </div>
                 </div>
@@ -67,5 +68,70 @@
       </div>
     </div>
   </div>
+
+  <script>
+    const apiKey = 'AIzaSyBsq0z66e0VDayqKtIp6V5OTiQlHT7UeM8'; // Your API key
+
+    document.getElementById('loginButton').addEventListener('click', function() {
+      // Logic for login using Google Cloud Auth API (using API Key)
+      // Example (replace with your actual implementation):
+      const email = document.querySelector('.card-front input[type="email"]').value;
+      const password = document.querySelector('.card-front input[type="password"]').value;
+
+      // In a real-world scenario, you would send this data to your backend,
+      // which would then use the Google Cloud Auth API with the API key
+      // to authenticate the user.
+      console.log('Login attempt:', email, password, apiKey);
+
+      // Example fetch request (replace with your actual endpoint)
+      fetch('/your-login-endpoint', { //Replace with your backend endpoint.
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}` //If needed by your backend.
+        },
+        body: JSON.stringify({ email: email, password: password })
+      })
+      .then(response => response.json())
+      .then(data => {
+          console.log('Login response:', data);
+          // Handle response (e.g., redirect on success, show error on failure)
+      })
+      .catch(error => {
+          console.error('Login error:', error);
+          // Handle error
+      });
+    });
+
+    document.getElementById('registerButton').addEventListener('click', function() {
+      // Logic for registration using Google Cloud Auth API (using API Key)
+      // Example (replace with your actual implementation):
+      const fullName = document.querySelector('.card-back input[type="text"]').value;
+      const phoneNumber = document.querySelector('.card-back input[type="tel"]').value;
+      const email = document.querySelector('.card-back input[type="email"]').value;
+      const password = document.querySelector('.card-back input[type="password"]').value;
+
+      console.log('Register attempt:', fullName, phoneNumber, email, password, apiKey);
+
+      fetch('/your-register-endpoint', { //Replace with your backend endpoint.
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}` //If needed by your backend.
+        },
+        body: JSON.stringify({ fullName: fullName, phoneNumber: phoneNumber, email: email, password: password })
+      })
+      .then(response => response.json())
+      .then(data => {
+          console.log('Register response:', data);
+          // Handle response (e.g., redirect on success, show error on failure)
+      })
+      .catch(error => {
+          console.error('Register error:', error);
+          // Handle error
+      });
+    });
+
+  </script>
 </body>
 </html>
